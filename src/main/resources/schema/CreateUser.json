@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "integer",
+      "minimum": 200,
+      "maximum": 500
+    },
+    "type" : {
+      "type": ["string", "null"]
+    },
+    "message": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "code",
+    "type",
+    "message"
+  ],
+  "additionalItems": false
+}
