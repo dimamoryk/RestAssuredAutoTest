@@ -1,4 +1,4 @@
-package test.createUser;
+package main;
 
 import config.ConfigConstants;
 import dto.User;
