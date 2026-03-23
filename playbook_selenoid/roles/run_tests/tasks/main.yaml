@@ -1,0 +1,36 @@
+---
+- name: Prepare environment
+  tags: prepare_env
+  block:
+    - name: Install prerequisites
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - maven
+        - openjdk-21-jdk-headless
+        - docker-ce
+      tags: install_prereqs
+
+    - name: Build and run tests
+      block:
+        - name: Clone the test project from Git
+          git:
+            repo: "https://{{ github_token }}@github.com/dimamoryk/AutotestWithSolenoid.git"
+            dest: "/tmp/tests"
+            version: main
+          vars:
+            github_token: "{{ lookup('env', 'GITHUB_TOKEN') }}"
+        - name: Clean and verify project
+          shell: |
+            cd "{{ tests_directory }}" &&
+            mvn clean test
+          when: browser_type is defined
+          tags: run_tests
+
+        - name: Delete target directory after testing
+          file:
+            path: "{{ tests_directory }}/target"
+            state: absent
+          ignore_errors: true
+          tags: cleanup_target
