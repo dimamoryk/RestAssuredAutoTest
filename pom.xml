@@ -107,7 +107,7 @@
         <profile>
             <id>prod</id>
             <properties>
-                <base.url>https://petstore.swagger.io/#</base.url>
+                <base.url>https://wiremock:8080</base.url>
             </properties>
         </profile>
     </profiles>
